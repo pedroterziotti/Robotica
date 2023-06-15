@@ -7,8 +7,8 @@ const int pinMotorR_F=4, // IN1
           pinUltraFTrig=11,
           pinUltraFEcho=10,
 
-          pinUltraFTrig=13,
-          pinUltraFEcho=12,
+          //pinUltraFTrig=13,
+          //pinUltraFEcho=12,
           
           pinLdrR= A0,
           pinLdrL = A1; //pinos
@@ -27,14 +27,17 @@ estados estadoAtual= Frente;
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
+  
   pinMode(pinMotorR_F, OUTPUT);
   pinMode(pinMotorR_B, OUTPUT);
+
 
   pinMode(pinMotorL_F, OUTPUT);
   pinMode(pinMotorL_B, OUTPUT);
   
-  pinMode(pinUltraTrig, OUTPUT);
-  pinMode(pinUltraEcho, INPUT); //pinagem
+  //pinMode(pinUltraTrig, OUTPUT);
+  //pinMode(pinUltraEcho, INPUT); //pinagem
 }
 
 void loop() {
@@ -65,14 +68,14 @@ void loop() {
       break;
   }
 
-  	digitalWrite(pinUltraTrig, LOW);  
+  	digitalWrite(pinUltraFTrig, LOW);  
     delayMicroseconds(2);  
-    digitalWrite(pinUltraTrig, HIGH);  
+    digitalWrite(pinUltraFTrig, HIGH);  
     delayMicroseconds(10);  
-    digitalWrite(pinUltraTrig, LOW); 
-    duration = pulseIn(pinUltraEcho, HIGH);
+    digitalWrite(pinUltraFTrig, LOW); 
+    duration = pulseIn(pinUltraFEcho, HIGH);
     distance = (duration*.0343)/2;
-    
+    Serial.println(distance);
     estadoAtual = distance < 5 ? RodandoR: Frente; //vira pra direita se encontrar um obj a 5 cm de distancia
 
 }
